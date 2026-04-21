@@ -16,18 +16,18 @@
   alert("Please enter a URL");
   return;
 }
+    app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
   async function generate() {
   const url = document.getElementById("url").value;
 
-  const res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      url: url
-    })
-  });
+  const res = awaitconst res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ url }),
+});
 
   const data = await res.json();
   document.getElementById("output").innerText = data.result;
