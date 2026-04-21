@@ -4,16 +4,13 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
-// Important Fix: Dynamic Port for render
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running"));
-// Dynamic port code end
+
 app.post("/generate", async (req, res) => {
   const { url } = req.body;
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnvC-kol0e0PYS8cECUGNVpoRLWD4pWnk`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDPl7FGALb9aFeXLPm8HN91hMt9oSvoA8w`,
       {
         method: "POST",
         headers: {
@@ -49,9 +46,9 @@ Format properly with headings.
         }),
       }
     );
-const data = await response.json();
-console.log("Gemini response:", data);
+
     const data = await response.json();
+    console.log("Gemini response:", data);
 
     const result =
       data.candidates?.[0]?.content?.parts?.[0]?.text ||
@@ -60,11 +57,12 @@ console.log("Gemini response:", data);
     res.json({ result });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ 
-  error: error.message || "Something went wrong"
-});
+    res.status(500).json({
+      error: error.message || "Something went wrong",
+    });
   }
 });
 
+// ✅ ONLY ONE PORT DECLARATION
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
