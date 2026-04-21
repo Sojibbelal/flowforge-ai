@@ -11,7 +11,8 @@ app.get("/", (req, res) => {
 
 app.post("/generate", async (req, res) => {
   const { url } = req.body;
-
+console.log("REQUEST HIT /generate");
+console.log("BODY:", req.body);
   try {
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDPl7FGALb9aFeXLPm8HN91hMt9oSvoA8w`,
