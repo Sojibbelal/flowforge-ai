@@ -40,7 +40,7 @@ app.post("/generate", async (req, res) => {
       return res.status(400).json({ error: "URL is required" });
     }
 
-   const response = await fetch(
+  const response = await fetch(
   `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
   {
     method: "POST",
@@ -50,31 +50,26 @@ app.post("/generate", async (req, res) => {
     body: JSON.stringify({
       contents: [
         {
+          role: "user",
           parts: [
             {
-              text: `Analyze Shopify store: ${url}`
+              text: `Analyze this Shopify store: ${url}
 
 Generate:
+1. Email flows
+2. Abandoned cart flow
+3. Chatbot script`
+            }
+          ]
+        }
+      ]
+    }),
+  }
+);
 
-1. Welcome Email Flow (3 emails)
-2. Abandoned Cart Flow (3 emails)
-3. Chatbot Script (FAQ + sales)
-
-Make it:
-- High converting
-- Clear structure
-- Actionable output
-                  `,
-                },
-              ],
-            },
-          ],
-        }),
-      }
-    );
-
-    const data = await response.json();
-
+const data = await response.json(); // Debug 2 line
+console.log(JSON.stringify(data, null, 2));
+     
 console.log("FULL GEMINI RESPONSE:", JSON.stringify(data, null, 2));
 
 if (!data || data.error) {
