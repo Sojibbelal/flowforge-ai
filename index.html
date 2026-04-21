@@ -12,21 +12,22 @@
   <pre id="output"></pre>
 
   <script>
-    async function generate() {
-      const url = document.getElementById("url").value;
+  async function generate() {
+  const url = document.getElementById("url").value;
 
-      const res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    url: "https://example.com"
-  })
-});
+  const res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      url: url
+    })
+  });
 
-      const data = await res.json();
-      document.getElementById("output").innerText = data.result;
+  const data = await res.json();
+  document.getElementById("output").innerText = data.result;
+}
     }
   </script>
 </body>
