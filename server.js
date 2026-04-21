@@ -16,6 +16,18 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("FlowForge AI Backend is running 🚀");
 });
+
+/* =========================
+   OPTIONAL BROWSER TEST ROUTE
+========================= */
+app.get("/generate", (req, res) => {
+  res.send("Use POST /generate instead 🚀");
+});
+
+/* =========================
+   MAIN AI ROUTE
+========================= */
+app.post("/generate", async (req, res) => {
   try {
     console.log("REQUEST HIT /generate");
     console.log("BODY:", req.body);
@@ -27,7 +39,7 @@ app.get("/", (req, res) => {
     }
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.AIzaSyDPl7FGALb9aFeXLPm8HN91hMt9oSvoA8w}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -39,7 +51,7 @@ app.get("/", (req, res) => {
               parts: [
                 {
                   text: `
-You are an expert eCommerce marketing strategist.
+You are an expert eCommerce marketer.
 
 Analyze this Shopify store: ${url}
 
@@ -50,9 +62,9 @@ Generate:
 3. Chatbot Script (FAQ + sales)
 
 Make it:
-- Highly converting
+- High converting
 - Clear structure
-- Actionable
+- Actionable output
                   `,
                 },
               ],
