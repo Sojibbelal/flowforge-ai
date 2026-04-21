@@ -13,7 +13,7 @@ app.post("/generate", async (req, res) => {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDnvC-kol0e0PYS8cECUGNVpoRLWD4pWnk`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDnvC-kol0e0PYS8cECUGNVpoRLWD4pWnk`,
       {
         method: "POST",
         headers: {
@@ -49,7 +49,8 @@ Format properly with headings.
         }),
       }
     );
-
+const data = await response.json();
+console.log("Gemini response:", data);
     const data = await response.json();
 
     const result =
@@ -59,7 +60,9 @@ Format properly with headings.
     res.json({ result });
   } catch (error) {
     console.error(error);
-    res.json({ result: "Error generating response" });
+    res.status(500).json({ 
+  error: error.message || "Something went wrong"
+});
   }
 });
 
