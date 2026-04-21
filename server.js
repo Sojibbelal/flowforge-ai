@@ -11,24 +11,57 @@ app.listen(PORT, () => console.log("Server running"));
 app.post("/generate", async (req, res) => {
   const { url } = req.body;
 
-  // TEMP: fake response (no API cost)
-  const result = `
-Welcome Flow:
-- Email 1: Welcome + Brand intro
-- Email 2: Product benefits
-- Email 3: Offer discount
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDnvC-kol0e0PYS8cECUGNVpoRLWD4pWnk`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `
+You are an expert eCommerce marketer.
 
-Abandoned Cart:
-- Reminder after 1 hour
-- Discount after 24h
+Analyze this Shopify store: ${url}
 
-Chatbot:
-- FAQ
-- Order tracking
-- Upsell suggestions
-`;
+Generate:
 
-  res.json({ result });
+1. Welcome Email Flow (3 emails)
+2. Abandoned Cart Flow (3 emails)
+3. Chatbot Script (FAQ + sales)
+
+Make it:
+- High converting
+- Personalized
+- Clear and structured
+
+Format properly with headings.
+                  `,
+                },
+              ],
+            },
+          ],
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    const result =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response from AI";
+
+    res.json({ result });
+  } catch (error) {
+    console.error(error);
+    res.json({ result: "Error generating response" });
+  }
 });
 
-app.listen(3000, () => console.log("Server running"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running"));
