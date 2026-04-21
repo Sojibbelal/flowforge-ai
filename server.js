@@ -40,22 +40,19 @@ app.post("/generate", async (req, res) => {
       return res.status(400).json({ error: "URL is required" });
     }
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, // Using gemini minimum model
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [
+   const response = await fetch(
+  `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
             {
-              parts: [
-                {
-                  text: `
-You are an expert eCommerce marketer.
-
-Analyze this Shopify store: ${url}
+              text: `Analyze Shopify store: ${url}`
 
 Generate:
 
