@@ -76,13 +76,24 @@ Make it:
 
     const data = await response.json();
 
-    console.log("GEMINI RESPONSE:", data);
+console.log("FULL GEMINI RESPONSE:", JSON.stringify(data, null, 2));
 
-    const result =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No response from AI";
+if (!data || data.error) {
+  return res.json({
+    result: "Gemini API Error: " + (data?.error?.message || "Unknown error")
+  });
+}
 
-    return res.json({ result });
+const result =
+  data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+if (!result) {
+  return res.json({
+    result: "No valid AI response received. Check logs."
+  });
+}
+
+return res.json({ result });
   } catch (error) {
     console.error("ERROR:", error);
 
