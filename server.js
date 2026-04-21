@@ -39,7 +39,7 @@ app.post("/generate", async (req, res) => {
     }
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.AIzaSyDPl7FGALb9aFeXLPm8HN91hMt9oSvoA8w}`,
       {
         method: "POST",
         headers: {
