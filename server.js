@@ -16,11 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("FlowForge AI Backend is running 🚀");
 });
-
-/* =========================
-   MAIN AI ROUTE
-========================= */
-app.post("/generate", async (req, res) => {
   try {
     console.log("REQUEST HIT /generate");
     console.log("BODY:", req.body);
