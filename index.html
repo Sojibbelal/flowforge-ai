@@ -12,6 +12,10 @@
   <pre id="output"></pre>
 
   <script>
+    if (!url) {
+  alert("Please enter a URL");
+  return;
+}
   async function generate() {
   const url = document.getElementById("url").value;
 
