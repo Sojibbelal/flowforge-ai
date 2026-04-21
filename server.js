@@ -27,6 +27,8 @@ app.get("/generate", (req, res) => {
 /* =========================
    MAIN AI ROUTE
 ========================= */
+console.log("API KEY:", process.env.GEMINI_API_KEY); // Temp code for debugging
+
 app.post("/generate", async (req, res) => {
   try {
     console.log("REQUEST HIT /generate");
