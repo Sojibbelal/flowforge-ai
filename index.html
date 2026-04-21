@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FlowForge AI</title>
+</head>
+<body>
+  <h1>Generate Shopify Flows</h1>
+
+  <input id="url" placeholder="Enter store URL" />
+  <button onclick="generate()">Generate</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function generate() {
+      const url = document.getElementById("url").value;
+
+      const res = await fetch("http://localhost:3000/generate", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ url })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText = data.result;
+    }
+  </script>
+</body>
+</html>
