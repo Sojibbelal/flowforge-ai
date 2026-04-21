@@ -4,7 +4,10 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+// Important Fix: Dynamic Port for render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running"));
+// Dynamic port code end
 app.post("/generate", async (req, res) => {
   const { url } = req.body;
 
