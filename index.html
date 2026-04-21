@@ -4,35 +4,35 @@
   <title>FlowForge AI</title>
 </head>
 <body>
-  <h1>Generate Shopify Flows</h1>
 
-  <input id="url" placeholder="Enter store URL" />
-  <button onclick="generate()">Generate</button>
+<h1>Generate Shopify Flows</h1>
 
-  <pre id="output"></pre>
+<input id="url" placeholder="Enter store URL" />
+<button onclick="generate()">Generate</button>
 
-  <script>
-    if (!url) {
-  alert("Please enter a URL");
-  return;
-}
-    app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-  async function generate() {
+<pre id="output"></pre>
+
+<script>
+async function generate() {
   const url = document.getElementById("url").value;
 
-  const res = awaitconst res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ url }),
-});
+  if (!url) {
+    alert("Please enter a URL");
+    return;
+  }
+
+  const res = await fetch("https://flowforge-ai-sn14.onrender.com/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ url }),
+  });
 
   const data = await res.json();
   document.getElementById("output").innerText = data.result;
 }
-    }
-  </script>
+</script>
+
 </body>
 </html>
